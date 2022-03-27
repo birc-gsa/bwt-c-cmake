@@ -6,7 +6,7 @@ The exact interfaces to the functions depend on the programming language, but th
 
 ```
     bwt(x) -> the BWT of x
-    rbwt(rx) -> x if rx is the BWT of x
+    rbwt(y) -> x if y is the BWT of x
 ```
 
 Both functions should run in `O(len(x))`. If you do not have a linear-time suffix array construction implementation, however, it is okay if the complexity is bounded by the time it takes to build a suffix array with the code you have. The rest, however, should run in linear time.
