@@ -1,6 +1,7 @@
 #ifndef SA_H
 #define SA_H
 
+#include <stdint.h>
 #include <stdlib.h>
 
 // If you care to read this, you will learn of a new suffix array
