@@ -473,19 +473,19 @@ static uint32_t update_rank(uint32_t n,
     // readily compare, we pack them in 64-bit integers
 #define PAIR(i, k) (((uint64_t)rank[sa[i]] << 32) | (uint64_t)get_rank(n, rank, sa[i] + k))
 
-    uint32_t sigma = 1; // leave zero for sentinel
-    out[sa[0]] = sigma;
+    uint32_t a = 0;
+    out[sa[0]] = a;
 
     uint64_t prev_pair = PAIR(0, k);
     for (uint32_t i = 1; i < n; i++)
     {
         uint64_t cur_pair = PAIR(i, k);
-        sigma += (prev_pair != cur_pair);
+        a += (prev_pair != cur_pair);
         prev_pair = cur_pair;
-        out[sa[i]] = sigma;
+        out[sa[i]] = a;
     }
 
-    return sigma + 1;
+    return a + 1; // sigma is one past largest letter
 
 #undef PAIR
 }
@@ -508,7 +508,7 @@ void prefix_doubling(size_t n, const char x[n], uint32_t sa[n]) // FlawFinder: i
     // start by sorting according to the first rank.
     radix_sort_bucket(n, n, 0, rank, sa, buf);
 
-    for (uint32_t k = 1; sigma < n + 1; k *= 2) // Iterate until each prefix-letter is unique
+    for (uint32_t k = 1; sigma < n; k *= 2) // Iterate until each prefix-letter is unique
     {
         radix_sort(n, k, rank, sa, buf);
         sigma = update_rank(n, sa, rank, buf, k);

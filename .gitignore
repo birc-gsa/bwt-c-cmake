@@ -65,3 +65,5 @@ src/sa_test
 src/bwt_test
 .gitignore
 Makefile
+build/src/bwt_test
+build/src/sa_test
